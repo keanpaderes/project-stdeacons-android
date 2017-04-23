@@ -1,3 +1,45 @@
 <resources>
-    <string name="app_name">Project STDeacons</string>
+    <string name="app_name">STDeacons</string>
+    <string name="splash_logo_text">Go near an art piece!</string>
+    <string-array name="beacon_spinner_array">
+        <item>Choose...</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string name="ok_btn">OK</string>
+    <string name="add_btn">ADD</string>
+    <string name="loc_name">Name:</string>
+    <string name="loc_place">Place:</string>
+    <string name="info_subtitle">Museum Companion App</string>
+    <string name="info_information">STDeacons is a companion application of
+        Group 2 for the interactive art installation which is a partial
+        fulfillment for HUME10. The art installation tackles Adolescent
+        Sexual Health and various Sexually Transmitted Diseases.</string>
+    <string name="info_footer">A Special Project application implementing indoor
+        localization using BLE Beacons.</string>
+    <string name="title_activity_art_piece">ArtPieceActivity</string>
+    <string name="subject_name_holder">Subject n</string>
+    <string name="sub1_name_holder">Description</string>
+    <string name="sub2_name_holder">Symptoms</string>
+    <string name="sub3_name_holder">Treatment</string>
+    <string name="large_text1">
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+    </string>
+    <string name="large_text2">
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+    </string>
+    <string name="large_text3">
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+    </string>
 </resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/beaconNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        tools:text="BeaconName"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/beaconMajorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:textSize="14sp"
+        tools:text="major"
+        android:layout_alignBaseline="@+id/beaconNameText"
+        android:layout_alignBottom="@+id/beaconNameText"
+        android:layout_toEndOf="@+id/beaconNameText" />
+
+    <TextView
+        android:id="@+id/beaconMinorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/beaconMajorText"
+        android:layout_alignTop="@+id/beaconMajorText"
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/beaconMajorText"
+        android:textSize="14sp"
+        tools:text="minor" />
+
+    <TextView
+        android:id="@+id/beaconProximityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="51dp"
+        tools:text="Distance"
+        android:layout_alignBaseline="@+id/beaconMinorText"
+        android:layout_alignBottom="@+id/beaconMinorText"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

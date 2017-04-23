@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_height="192dp"
+        android:layout_width="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/titleHeader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/backBtnIcon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_arrow_back_white_24dp" />
+
+            <ImageView
+                android:id="@+id/infoHeaderIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/backBtnIcon"
+                android:layout_marginBottom="16dp"
+                app:srcCompat="@mipmap/stdeacons" />
+
+            <TextView
+                android:id="@+id/infoHeaderTitle"
+                android:layout_width="249dp"
+                android:layout_height="60dp"
+                android:layout_above="@+id/infoHeaderSubtitle"
+                android:layout_marginRight="10dp"
+                android:layout_toEndOf="@+id/infoHeaderIcon"
+                android:fontFamily="serif"
+                android:text="@string/app_name"
+                android:textAlignment="viewStart"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="@color/colorAccent"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:visibility="visible"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/splashLogo" />
+
+            <TextView
+                android:id="@+id/infoHeaderSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/infoHeaderIcon"
+                android:layout_marginBottom="17dp"
+                android:layout_marginStart="34dp"
+                android:layout_toEndOf="@+id/infoHeaderIcon"
+                android:text="@string/info_subtitle"
+                android:textColor="@color/colorAccent" />
+
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/slideShow"
+            tools:context="com.example.kean.projectstdeacons.Activities.InfoActivity"
+            tools:layout_editor_absoluteX="0dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="302dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="103dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:fontFamily="serif"
+                android:text="@string/info_footer"
+                android:textAlignment="center"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="302dp"
+                android:layout_height="200dp"
+                android:layout_marginBottom="120dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="serif"
+                android:text="@string/info_information"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.475" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

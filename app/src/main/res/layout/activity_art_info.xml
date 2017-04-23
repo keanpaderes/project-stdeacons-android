@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kean.projectstdeacons.Activities.ArtInfoActivity">
+
+    <ScrollView
+        android:id="@+id/artInfoScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="0dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/slideShow"
+                android:layout_width="fill_parent"
+                android:layout_height="229dp"
+                android:layout_marginTop="-1dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/imagePager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true" />
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/imageIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_alignParentBottom="true" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/artInfoMain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/slideShow">
+
+                <TextView
+                    android:id="@+id/subjectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:text="@string/subject_name_holder"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/subject_name"
+                    android:textStyle="bold"
+                    tools:text="@string/subject_name_holder" />
+
+                <TextView
+                    android:id="@+id/sub1Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="@string/sub1_name_holder"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sub_title"
+                    tools:text="@string/sub1_name_holder" />
+
+                <TextView
+                    android:id="@+id/sub1Info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/large_text1"
+                    android:textAlignment="viewStart"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sub_info"
+                    tools:text="@string/large_text1" />
+
+                <TextView
+                    android:id="@+id/sub2Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/sub2_name_holder"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sub_title"
+                    tools:text="@string/sub2_name_holder" />
+
+                <TextView
+                    android:id="@+id/sub2Info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/large_text2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sub_info"
+                    tools:text="@string/large_text2" />
+
+                <TextView
+                    android:id="@+id/sub3Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/sub3_name_holder"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sub_title"
+                    tools:text="@string/sub3_name_holder" />
+
+                <TextView
+                    android:id="@+id/sub3Info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/large_text3"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sub_info"
+                    tools:text="@string/large_text3" />
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/faveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:clickable="true"
+        android:src="@drawable/ic_favorite_border"
+        app:elevation="5dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/slideShow"
+        app:layout_anchorGravity="bottom|right|end"
+        app:useCompatPadding="true" />
+</android.support.design.widget.CoordinatorLayout>
