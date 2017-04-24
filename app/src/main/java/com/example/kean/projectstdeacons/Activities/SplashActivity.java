@@ -6,14 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -22,10 +20,15 @@ import com.estimote.sdk.SystemRequirementsChecker;
 import com.example.kean.projectstdeacons.Adapters.DrawerListViewAdapter;
 import com.example.kean.projectstdeacons.Application.BeaconRangingApp;
 import com.example.kean.projectstdeacons.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class SplashActivity extends AppCompatActivity {
     private ToggleButton rangingToggler;
@@ -39,23 +42,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private CharSequence leftDrawerTitle;
     private CharSequence mTitle;
-    private String[] placeholderArr = {
-            "header",
-            "Disease 1", "Disease 2", "Disease 3", "Disease 4", "Disease 5",
-    };
+    private ArrayList<String> drawerItems = new ArrayList<>();
+    private AsyncHttpClient client = new AsyncHttpClient();
 
     private int logoTapCount = 0;
     private Boolean isRanged = false;
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(SplashActivity.this, "Clicked: " +
-                    placeholderArr[position], Toast.LENGTH_SHORT).show();
-            //selectItem(position);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,16 +72,17 @@ public class SplashActivity extends AppCompatActivity {
         infoIcon = (ImageView) findViewById(R.id.infoIcon);
         listIcon = (ImageView) findViewById(R.id.listIcon);
         rangingToggler = (ToggleButton) findViewById(R.id.splashRangingToggler);
+        splashLogoText = (TextView) findViewById(R.id.splashLogoTxt);
 
         splashLogo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(logoTapCount == 5) {
-                    Toast.makeText(SplashActivity.this, "Dev Mode On", Toast.LENGTH_SHORT).show();
-                    //check which beacons in trusted beacons that are found
-                    rangingToggler.setVisibility(View.VISIBLE);
-                    splashLogoText.setVisibility(View.INVISIBLE);
-                } else ++logoTapCount;
+//                if(logoTapCount == 5) {
+//                    Toast.makeText(SplashActivity.this, "Dev Mode On", Toast.LENGTH_SHORT).show();
+//                    //check which beacons in trusted beacons that are found
+//                    rangingToggler.setVisibility(View.VISIBLE);
+//                    splashLogoText.setVisibility(View.INVISIBLE);
+//                } else ++logoTapCount;
 
                 return true;
             }
@@ -111,10 +103,10 @@ public class SplashActivity extends AppCompatActivity {
         listIcon.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent intent = new Intent(getApplicationContext(), ArtInfoActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), ArtInfoActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
 
                 return true;
             }
@@ -144,34 +136,74 @@ public class SplashActivity extends AppCompatActivity {
         mTitle = leftDrawerTitle = getTitle();
         leftDrawerLayout = (DrawerLayout) findViewById(R.id.splashDrawerLayout);
         leftDrawerList = (ListView) findViewById(R.id.leftAppDrawer);
+        if(!drawerItems.contains("header")) drawerItems.add("header");
 
-        ArrayList<String> drawerItems = new ArrayList<>(Arrays.asList(placeholderArr));
+        client.get("http://192.168.1.6:8080/api/pieces/names", null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                // called when response HTTP status is "200 OK"
+                for(int i = 0; i< response.length(); i++) {
+                    try {
+                        String temp = response.getJSONObject(i).getString("subjectFormal");
+                        if(!drawerItems.contains(temp)) {
+                            drawerItems.add(temp);
+                        }
+                    } catch(JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ProgressBar loaded = (ProgressBar) findViewById(R.id.progressBar);
+                loaded.setVisibility(View.GONE);
+                splashLogo.setVisibility(View.VISIBLE);
+                splashLogoText.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Toast.makeText(SplashActivity.this, responseString, Toast.LENGTH_SHORT).show();
+            }
+        });
         leftDrawerList.setAdapter(new DrawerListViewAdapter(this, drawerItems));
         leftDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+    }
 
-        splashLogoText = (TextView) findViewById(R.id.splashLogoTxt);
-        fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
-        splashLogoText.setAnimation(fadeIn);
-        fadeIn.setDuration(1200);
-        fadeIn.setFillAfter(true);
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if(position != 0){
+                String req = "http://192.168.1.6:8080/api/pieces/specific?id=" + position;
+                client.get(req, null, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        // called when response HTTP status is "200 OK"
+                        Intent intent = new Intent(getApplicationContext(), ArtInfoActivity.class);
+                        for(int i = 0; i< response.length(); i++) {
+                            try {
+                                intent.putExtra("subjectName", response.getJSONObject(i).getString("subjectName"));
+                                intent.putExtra("subjectFormal", response.getJSONObject(i).getString("subjectFormal"));
+                                intent.putExtra("isDisease", String.valueOf(response.getJSONObject(i).getBoolean("isDisease")));
+                                intent.putExtra("faveCount", String.valueOf(response.getJSONObject(i).getInt("faveCount")));
+                            } catch(JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        Toast.makeText(SplashActivity.this, responseString, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                splashLogoText.setVisibility(View.VISIBLE);
-                splashLogoText.clearAnimation();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        splashLogoText.startAnimation(fadeIn);
+        }
     }
 }

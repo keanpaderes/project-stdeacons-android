@@ -42,4 +42,41 @@
         "flexibility of the material creates new affordances that supercede those in the physical "
         "world, without breaking the rules of physics.\n"
     </string>
+
+
+    <string name="syphilis_information">
+        "Modes of Transmission: (via sore or infected blood)\n"
+        "\t1. Contact with ulcer during sex (vaginal, penile, oral, anal)\n"
+        "\t2. Touching infectious ulcer and it breaks\n"
+        "\t3. Transfusion with infected blood\n"
+        "\t4. Maternal fetal transmission\n"
+        "\t5. Contaminated needles"
+    </string>
+    <string name="syphilis_symptoms">
+        "Primary Stage - hard round painless sore or ulcer at genitalia, mouth or elsewhere within 12 weeks. Heals without scar (infectious ulcer).\n\nSecondary Stage - latent (flu-like symptoms with rashes) which disappear and reappear but there is no bacteria. (infectious blood)\n\nTertiary Stage - spread to major organs especially brain -> insanity and death (non-infectious but progressive, irreversible damage).\n\nPregnancy - may cause miscarriage or congenital birth defects.\n"
+    </string>
+    <string name="syphilis_treatment">
+        "Diagnosis: easy and inexpensive through Venereal Disease Research Laboratory (VDRL) test.\n\nCurable with antibiotics (only in primary and secondary stage). No cure in tertiary stage.\n"
+    </string>
+
+    <string name="gw_information">
+        "Other name: Venereal Wart\n\nCause: A virus called Human Papilloma Virus (HPV)\n"
+    </string>
+    <string name="gw_symptoms">
+        "Modes of Transmission: highly contagious\n\t * Sexual (common) - initimate skin to skin contact during sex\n\t * Non-sexual (uncommon) - sharing infected towels or clothing\n\nSymptoms: Painless cauliflower-like growths in skin around genitalia, mouth, or inside the vagina/cervix.\n"
+    </string>
+    <string name="gw_treatment">
+        "It is easily curable, but complications might lead to Cancer of the cervix. The only prevention for this is a vervical cancer vaccine which is already discovered and available.\n"
+    </string>
+
+    <string name="vd_information">
+        "Fun Fact: Trichomoniasis is also called \"trich\".\n\nCauses:\n\t * Bacterial Vaginitis - harmful vaginal bacteria\n\t * Yeast Vaginitis - fungus (yeast)\n\t * Trichomoniasis - swimming protozoa (a one cell animal)\n\n"
+    </string>
+    <string name="vd_symptoms">
+        "Modes of Transmissions:\n\t * Bacterial Vaginitis - vaginal contact (sexual means, uncommon mode), overgrowth of harmful bacteria in the vagina due to frequent douching and irrational antibiotic use which also kills friendly bacteria (non-sexual means, common mode)\n\n\t * Yeast Vaginitis - vaginal contact (uncommon mode), overgrowth of fungus in the vagina due excessive antibiotic use (common mode), and immediate sharing of underwear/towels of an infected person with discharge (rare)\n\n\t * Trichomoniasis - almost always sexually transmitted, rarely thru contact of contaminated personal effects or toilet seats\n\n\n"
+        "Symptoms:\n\t * Bacterial Vaginitis - vagina have foul-smelling odor plus discharge (Women), inflammation of foreskin, glans penis, urethral opening (Men)\n\n\t * Yeast Vaginitis - 'White-cheese'-like discharge and vulval itchiness (Women), itching and burning sensation on urination; reddening of penis (Men)\n\n\t * Trichomoniasis - vulval itchiness, foul-smelling odor and yellowish-green discharge (Women), no visible symptoms as they are carriers only (Men)\n\n
+    </string>
+    <string name="vd_treatment">
+        "Both types of Vaginitis are easily treatable by antibiotics, creams, suppositories, or oral medicines. Some medicines for yeast infections are available without a prescription. Trichomoniasis is treated with oral medication.\n\n"
+    </string>
 </resources>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.kean.projectstdeacons.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -16,13 +17,13 @@ import java.util.ArrayList;
  */
 
 public class PicturePagerAdapter extends PagerAdapter {
-    private ArrayList<Integer> images;
+    private ArrayList<String> urls;
     private LayoutInflater inflater;
     private Context context;
 
-    public PicturePagerAdapter(Context context, ArrayList<Integer> images) {
+    public PicturePagerAdapter(Context context, ArrayList<String> urls) {
         this.context = context;
-        this.images = images;
+        this.urls = urls;
         this.inflater = LayoutInflater.from(this.context);
     }
 
@@ -33,7 +34,7 @@ public class PicturePagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return images.size();
+        return urls.size();
     }
 
     @Override
@@ -41,7 +42,9 @@ public class PicturePagerAdapter extends PagerAdapter {
         View myImageLayout = inflater.inflate(R.layout.image_slider, view, false);
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.image);
-        myImage.setImageResource(images.get(position));
+
+        Picasso.with(context).load(urls.get(position)).placeholder(R.drawable.bike).into(myImage);
+
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }

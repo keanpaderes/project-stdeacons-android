@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kean.projectstdeacons">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".Application.BeaconRangingApp"
         android:allowBackup="true"

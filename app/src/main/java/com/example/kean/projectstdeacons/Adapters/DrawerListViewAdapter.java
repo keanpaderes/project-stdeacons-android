@@ -1,6 +1,7 @@
 package com.example.kean.projectstdeacons.Adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,10 @@ public class DrawerListViewAdapter extends BaseAdapter {
     private Context aContext;
     private LayoutInflater aInflater;
     private ArrayList<String> aData;
+//    private Integer[] icons = {
+//            R.drawable.ic_favorite,
+//            R.drawable.syphilis, R.drawable.gw, R.drawable.vd
+//    };
 
     public DrawerListViewAdapter(Context context, ArrayList<String> items) {
         aContext = context;
@@ -59,8 +64,10 @@ public class DrawerListViewAdapter extends BaseAdapter {
             curr = (DrawerItem) convertView.getTag();
         }
 
-        //curr.itemIcon.setImageDrawable
-        if(!getItem(position).equals("header")) curr.itemInfo.setText(getItem(position));
+        if(!getItem(position).equals("header")) {
+            curr.itemInfo.setText(getItem(position));
+//            curr.itemIcon.setImageDrawable(ContextCompat.getDrawable(aContext, icons[position]));
+        }
         return convertView;
     }
 
