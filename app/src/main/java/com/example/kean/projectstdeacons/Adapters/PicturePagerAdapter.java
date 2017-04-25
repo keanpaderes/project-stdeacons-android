@@ -43,7 +43,7 @@ public class PicturePagerAdapter extends PagerAdapter {
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.image);
 
-        Picasso.with(context).load(urls.get(position)).placeholder(R.drawable.bike).into(myImage);
+        Picasso.with(context).load(urls.get(position)).placeholder(R.mipmap.kleistoris).into(myImage);
 
         view.addView(myImageLayout, 0);
         return myImageLayout;

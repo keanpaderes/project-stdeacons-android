@@ -54,24 +54,38 @@ public class ArtInfoActivity extends AppCompatActivity {
         HashMap<String, String[]> ret = new HashMap<>();
         String[] syph = {
                 getString(R.string.syphilis_information),
-                getString(R.string.syphilis_symptoms),
-                getString(R.string.syphilis_treatment)
+                getString(R.string.syphilis_sub1),
+                getString(R.string.syphilis_sub2)
         };
         ret.put("syphilis", syph);
 
         String[] gw = {
                 getString(R.string.gw_information),
-                getString(R.string.gw_symptoms),
-                getString(R.string.gw_treatment)
+                getString(R.string.gw_sub1),
+                getString(R.string.gw_sub2)
         };
         ret.put("genital_warts", gw);
 
         String[] vd = {
                 getString(R.string.vd_information),
-                getString(R.string.vd_symptoms),
-                getString(R.string.vd_treatment)
+                getString(R.string.vd_sub1),
+                getString(R.string.vd_sub2)
         };
         ret.put("vagina_diseases", vd);
+
+        String[] am = {
+                getString(R.string.am_information),
+                getString(R.string.am_sub1),
+                getString(R.string.am_sub2)
+        };
+        ret.put("artificial_methods", am);
+
+        String[] tm = {
+                getString(R.string.tm_information),
+                getString(R.string.tm_sub1),
+                getString(R.string.tm_sub2)
+        };
+        ret.put("traditional_methods", tm);
 
         return ret;
     }
@@ -103,18 +117,32 @@ public class ArtInfoActivity extends AppCompatActivity {
         sub3Info = (TextView) findViewById(R.id.sub3Info);
 
         subjectName.setText(getIntent().getExtras().getString("subjectFormal"));
+        String[] info =
+                (String[]) subjects.get(getIntent().getExtras().getString("subjectName"));
+        sub1Title.setText("Description");
+        sub1Info.setText(info[0]);
 
-        if(Boolean.parseBoolean(getIntent().getExtras().getString("isDisease"))) {
-            String[] info =
-                    (String[]) subjects.get(getIntent().getExtras().getString("subjectName"));
-
-            sub1Title.setText("Description");
-            sub1Info.setText(info[0]);
-            sub2Title.setText("Symptoms");
-            sub2Info.setText(info[1]);
-            sub3Title.setText("Treatment");
-            sub3Info.setText(info[2]);
+        switch(getIntent().getExtras().getString("subjectName")) {
+            case "artificial_methods":
+                sub2Title.setText("Female Condoms");
+                sub2Info.setText(info[1]);
+                sub3Title.setText("Male Condoms");
+                sub3Info.setText(info[2]);
+                break;
+            case "traditional_methods":
+                sub2Title.setText("Regular Cycle");
+                sub2Info.setText(info[1]);
+                sub3Title.setText("Irregular Cycle");
+                sub3Info.setText(info[2]);
+                break;
+            default:
+                sub2Title.setText("Symptoms");
+                sub2Info.setText(info[1]);
+                sub3Title.setText("Treatment");
+                sub3Info.setText(info[2]);
+                break;
         }
+
 
         for(int i=1;i<=4;i++){
             String addStr = "http://192.168.1.6:8080/images/"

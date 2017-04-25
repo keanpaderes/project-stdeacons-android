@@ -185,7 +185,6 @@ public class SplashActivity extends AppCompatActivity {
                             try {
                                 intent.putExtra("subjectName", response.getJSONObject(i).getString("subjectName"));
                                 intent.putExtra("subjectFormal", response.getJSONObject(i).getString("subjectFormal"));
-                                intent.putExtra("isDisease", String.valueOf(response.getJSONObject(i).getBoolean("isDisease")));
                                 intent.putExtra("faveCount", String.valueOf(response.getJSONObject(i).getInt("faveCount")));
                             } catch(JSONException e) {
                                 e.printStackTrace();

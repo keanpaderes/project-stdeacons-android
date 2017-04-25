@@ -21,7 +21,6 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Create back button.
-                Toast.makeText(InfoActivity.this, "Going back.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

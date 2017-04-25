@@ -52,31 +52,52 @@
         "\t4. Maternal fetal transmission\n"
         "\t5. Contaminated needles"
     </string>
-    <string name="syphilis_symptoms">
+    <string name="syphilis_sub1">
         "Primary Stage - hard round painless sore or ulcer at genitalia, mouth or elsewhere within 12 weeks. Heals without scar (infectious ulcer).\n\nSecondary Stage - latent (flu-like symptoms with rashes) which disappear and reappear but there is no bacteria. (infectious blood)\n\nTertiary Stage - spread to major organs especially brain -> insanity and death (non-infectious but progressive, irreversible damage).\n\nPregnancy - may cause miscarriage or congenital birth defects.\n"
     </string>
-    <string name="syphilis_treatment">
+    <string name="syphilis_sub2">
         "Diagnosis: easy and inexpensive through Venereal Disease Research Laboratory (VDRL) test.\n\nCurable with antibiotics (only in primary and secondary stage). No cure in tertiary stage.\n"
     </string>
 
     <string name="gw_information">
         "Other name: Venereal Wart\n\nCause: A virus called Human Papilloma Virus (HPV)\n"
     </string>
-    <string name="gw_symptoms">
+    <string name="gw_sub1">
         "Modes of Transmission: highly contagious\n\t * Sexual (common) - initimate skin to skin contact during sex\n\t * Non-sexual (uncommon) - sharing infected towels or clothing\n\nSymptoms: Painless cauliflower-like growths in skin around genitalia, mouth, or inside the vagina/cervix.\n"
     </string>
-    <string name="gw_treatment">
+    <string name="gw_sub2">
         "It is easily curable, but complications might lead to Cancer of the cervix. The only prevention for this is a vervical cancer vaccine which is already discovered and available.\n"
     </string>
 
     <string name="vd_information">
         "Fun Fact: Trichomoniasis is also called \"trich\".\n\nCauses:\n\t * Bacterial Vaginitis - harmful vaginal bacteria\n\t * Yeast Vaginitis - fungus (yeast)\n\t * Trichomoniasis - swimming protozoa (a one cell animal)\n\n"
     </string>
-    <string name="vd_symptoms">
+    <string name="vd_sub1">
         "Modes of Transmissions:\n\t * Bacterial Vaginitis - vaginal contact (sexual means, uncommon mode), overgrowth of harmful bacteria in the vagina due to frequent douching and irrational antibiotic use which also kills friendly bacteria (non-sexual means, common mode)\n\n\t * Yeast Vaginitis - vaginal contact (uncommon mode), overgrowth of fungus in the vagina due excessive antibiotic use (common mode), and immediate sharing of underwear/towels of an infected person with discharge (rare)\n\n\t * Trichomoniasis - almost always sexually transmitted, rarely thru contact of contaminated personal effects or toilet seats\n\n\n"
         "Symptoms:\n\t * Bacterial Vaginitis - vagina have foul-smelling odor plus discharge (Women), inflammation of foreskin, glans penis, urethral opening (Men)\n\n\t * Yeast Vaginitis - 'White-cheese'-like discharge and vulval itchiness (Women), itching and burning sensation on urination; reddening of penis (Men)\n\n\t * Trichomoniasis - vulval itchiness, foul-smelling odor and yellowish-green discharge (Women), no visible symptoms as they are carriers only (Men)\n\n
     </string>
-    <string name="vd_treatment">
+    <string name="vd_sub2">
         "Both types of Vaginitis are easily treatable by antibiotics, creams, suppositories, or oral medicines. Some medicines for yeast infections are available without a prescription. Trichomoniasis is treated with oral medication.\n\n"
     </string>
+
+    <string name="am_information" formatted="false">
+        "These physical barriers prevents sperm from reaching the ovum. These birth control devices highly effective when used with their proper technique and are made with quality material, e.g quality latex condoms.\n\n"
+    </string>
+    <string name="am_sub1" formatted="false">
+        "Types of Female Condoms: \n\t1. Latex Type - Does not interfere with sex but has a low effectiveness rate. It can be easily inserted but has the possibility to be misplaced.\n\t2. Diaphragm Type - Not very effective and is less easy to insert. It can be misplaced, is tedious to apply, and is susceptible to infection. But it is reusable for a few times.\t3. Cervical Cap Type - More durable and effective than latex and diaphragm. Spermicide is already included. It does need a pre-fitting, and it is difficult to insert and remove. Possible source of infection, but it can be reused for a short time.\n\n"
+    </string>
+    <string name="am_sub2" formatted="false">
+        "Types of Male Condoms: \n\t1. Latex - Made up of 95\% Latex, 5\% Lambskin. Porous.\n\t2. Fresh - 3-5 years shelf life if in cool, dark, place.\n\t3. Lubricated - Use only water-based lubricants.\n\t4. Spermicides - Loaded with chemical substance to kill sperms.\n\t5. Reservoir tips - Bubble or tip for semen to collect and easy pull out condoms.\n\nAdvantages: \n\t- Protects against most STDs including HIV-AIDS but not herpes and wart lesions in exposed areas\n\t- Over the counter\n\t- inexpensive\n\nDisadvantages: \n\t- Interrupts sex act to insert\n\t- Less pleasurable if thick but durable\n\n"
+    </string>
+
+    <string name="tm_information" formatted="false">
+        "Natural Family Planning requires the mother/couple to be aware of her own fertility. This is achieved by: \n\t1. Determining the ovulation day and fertile period\n\t2. practicing sexual abstinence during fertile periods.\n\nOne method of determining fertility period is the Calendar-based method. This can be easily tracked down using circle beads.\n"
+    </string>
+    <string name="tm_sub1" formatted="false">
+        "Females with regular cycle have the same intervals every month. They use the 14 day rule and the 5-1 rule.\n\nOvulation Day: (14 day rule) Count constant 14 days before Day 1 of the next mense.\n\n Fertile period: (3-1 rule) During this period, it is 3 days before, and 1 day after plus the ovulation day, adding up for the total of 6 days.\n\n"
+    </string>
+    <string name="tm_sub2" formatted="false">
+        "Females with irregular cycle have varying interval days but between 26 to 32 days only. They use the 18-11 rule.\n\nFertile Period: (18-11 rule) shortest less 18 and longest less 11 and add to day 1 of last mense.\n\n"
+    </string>
+
 </resources>
