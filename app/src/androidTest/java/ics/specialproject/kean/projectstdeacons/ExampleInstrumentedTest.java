@@ -1,4 +1,4 @@
-package com.example.kean.projectstdeacons;
+package ics.specialproject.kean.projectstdeacons;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

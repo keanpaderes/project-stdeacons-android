@@ -1,12 +1,9 @@
-package com.example.kean.projectstdeacons.Activities;
+package ics.specialproject.kean.projectstdeacons.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
@@ -14,22 +11,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.kean.projectstdeacons.Adapters.PicturePagerAdapter;
-import com.example.kean.projectstdeacons.R;
+import ics.specialproject.kean.projectstdeacons.Adapters.PicturePagerAdapter;
+import ics.specialproject.kean.projectstdeacons.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -145,7 +137,7 @@ public class ArtInfoActivity extends AppCompatActivity {
 
 
         for(int i=1;i<=4;i++){
-            String addStr = "http://192.168.1.6:8080/images/"
+            String addStr = getResources().getText(R.string.server_url) + "/images/"
                     + getIntent().getExtras().getString("subjectName")
                     + "/photo" + i +".jpg";
             if(!picArr.contains(addStr)) picArr.add(addStr);
@@ -160,17 +152,17 @@ public class ArtInfoActivity extends AppCompatActivity {
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.faveBtn);
         final LinearLayout artInfoMain = (LinearLayout) findViewById(R.id.artInfoMain);
 
-        ScrollView scrollView = (ScrollView) findViewById(R.id.artInfoScrollView);
-        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                int[] ssPosition = new int[2];
-                artInfoMain.getLocationOnScreen(ssPosition);
-                if(ssPosition[1] < scrollY) {
-                    fab.hide();
-                } else fab.show();
-            }
-        });
+//        ScrollView scrollView = (ScrollView) findViewById(R.id.artInfoScrollView);
+//        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                int[] ssPosition = new int[2];
+//                artInfoMain.getLocationOnScreen(ssPosition);
+//                if(ssPosition[1] < scrollY) {
+//                    fab.hide();
+//                } else fab.show();
+//            }
+//        });
 
         fab.bringToFront();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -200,20 +192,7 @@ public class ArtInfoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                Intent upIntent = NavUtils.getParentActivityIntent(this);
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    // This activity is NOT part of this app's task, so create a new task
-                    // when navigating up, with a synthesized back stack.
-                    TaskStackBuilder.create(this)
-                            // Add all of this activity's parents to the back stack
-                            .addNextIntentWithParentStack(upIntent)
-                            // Navigate up to the closest parent
-                            .startActivities();
-                } else {
-                    // This activity is part of this app's task, so simply
-                    // navigate up to the logical parent activity.
-                    NavUtils.navigateUpTo(this, upIntent);
-                }
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

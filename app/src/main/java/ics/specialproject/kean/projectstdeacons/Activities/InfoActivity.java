@@ -1,13 +1,11 @@
-package com.example.kean.projectstdeacons.Activities;
+package ics.specialproject.kean.projectstdeacons.Activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.kean.projectstdeacons.R;
+import ics.specialproject.kean.projectstdeacons.R;
 
 public class InfoActivity extends AppCompatActivity {
 

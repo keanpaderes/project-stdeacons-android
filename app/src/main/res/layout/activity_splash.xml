@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.kean.projectstdeacons.Activities.SplashActivity">
+    tools:context="ics.specialproject.kean.projectstdeacons.Activities.SplashActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

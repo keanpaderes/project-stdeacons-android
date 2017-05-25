@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kean.projectstdeacons.Activities.ArtInfoActivity">
+    tools:context="ics.specialproject.kean.projectstdeacons.Activities.ArtInfoActivity">
 
     <ScrollView
         android:id="@+id/artInfoScrollView"
@@ -60,7 +60,7 @@
 
                 <TextView
                     android:id="@+id/subjectName"
-                    android:layout_width="match_parent"
+                    android:layout_width="282dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:paddingBottom="5dp"
@@ -92,7 +92,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/sub_info"
-                    tools:text="@string/large_text1" />
+                    tools:text="@string/sub_info_holder" />
 
                 <TextView
                     android:id="@+id/sub2Title"
@@ -113,7 +113,7 @@
                     android:paddingTop="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/sub_info"
-                    tools:text="@string/large_text2" />
+                    tools:text="@string/sub_info_holder" />
 
                 <TextView
                     android:id="@+id/sub3Title"
@@ -132,10 +132,9 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingTop="5dp"
-                    android:text="@string/large_text3"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/sub_info"
-                    tools:text="@string/large_text3" />
+                    tools:text="@string/sub_info_holder" />
 
             </LinearLayout>
 

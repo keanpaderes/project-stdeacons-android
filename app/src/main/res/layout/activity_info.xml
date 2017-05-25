@@ -84,7 +84,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/slideShow"
-            tools:context="com.example.kean.projectstdeacons.Activities.InfoActivity"
+            tools:context="com.example.kean.projectstdeacons.ics.example.kean.projectstdeacons.Activities.InfoActivity"
             tools:layout_editor_absoluteX="0dp">
 
             <TextView

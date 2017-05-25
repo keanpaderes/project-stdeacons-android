@@ -1,4 +1,4 @@
-package com.example.kean.projectstdeacons.Adapters;
+package ics.specialproject.kean.projectstdeacons.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.kean.projectstdeacons.Application.BeaconRangingApp;
-import com.example.kean.projectstdeacons.R;
+import ics.specialproject.kean.projectstdeacons.Application.BeaconRangingApp;
+import ics.specialproject.kean.projectstdeacons.*;
 
 import java.util.ArrayList;
 
@@ -49,11 +49,11 @@ public class BeaconListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder vHolder;
+        BeaconViewHolder vHolder;
         if(convertView == null){
             // Get view for row item
             convertView = beaconInflater.inflate(R.layout.list_beacon_item, parent, false);
-            vHolder = new ViewHolder();
+            vHolder = new BeaconViewHolder();
             vHolder.beaconNameText = (TextView) convertView.findViewById(R.id.beaconNameText);
             vHolder.beaconMajorText = (TextView) convertView.findViewById(R.id.beaconMajorText);
             vHolder.beaconMinorText = (TextView) convertView.findViewById(R.id.beaconMinorText);
@@ -61,18 +61,18 @@ public class BeaconListViewAdapter extends BaseAdapter {
             convertView.setTag(vHolder);
 
         } else {
-            vHolder = (ViewHolder) convertView.getTag();
+            vHolder = (BeaconViewHolder) convertView.getTag();
         }
         BeaconRangingApp.BeaconString nbs =
                 (BeaconRangingApp.BeaconString) getItem(position);
         vHolder.beaconNameText.setText(nbs.beaconName);
-        vHolder.beaconMajorText.setText(nbs.beaconMajor);
-        vHolder.beaconMinorText.setText(nbs.beaconMinor);
+        vHolder.beaconMajorText.setText(nbs.beaconPower);
+        vHolder.beaconMinorText.setText(nbs.beaconRSSI);
         vHolder.beaconProximityText.setText(nbs.beaconProximity);
         return convertView;
     }
 
-    public static class ViewHolder {
+    public static class BeaconViewHolder {
         public TextView beaconNameText;
         public TextView beaconMajorText;
         public TextView beaconMinorText;

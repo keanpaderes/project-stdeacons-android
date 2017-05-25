@@ -1,4 +1,4 @@
-package com.example.kean.projectstdeacons;
+package ics.specialproject.kean.projectstdeacons;
 
 import org.junit.Test;
 

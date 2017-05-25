@@ -1,8 +1,6 @@
-package com.example.kean.projectstdeacons.Adapters;
+package ics.specialproject.kean.projectstdeacons.Adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.kean.projectstdeacons.R;
+import ics.specialproject.kean.projectstdeacons.R;
 
 import java.util.ArrayList;
 
