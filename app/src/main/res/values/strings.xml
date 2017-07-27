@@ -5,6 +5,9 @@
     <string name="cancel_btn">CANCEL</string>
     <string name="add_btn">ADD</string>
     <string name="location_textview">Location</string>
+    <string name="switch_technique">Technique</string>
+    <string name="technique_0">Localization</string>
+    <string name="technique_1">Proximity</string>
 
 
     <!--WEB SERVER STRINGS-->

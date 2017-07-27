@@ -1,8 +1,10 @@
 package ics.specialproject.kean.projectstdeacons.Application;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.provider.Settings;
+import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -55,6 +57,8 @@ public class BeaconRangingApp extends Application {
     public static Boolean isSet = false;
     public static Boolean isPassed = false;
     public static Boolean inDev = false;
+    public static Boolean isLocated = false;
+    public static Integer technique = 0;
     public static HashMap<String, BeaconString> appBeacons
             = new HashMap<>();
     public static HashMap<String, LocationString> appLocations
@@ -100,7 +104,6 @@ public class BeaconRangingApp extends Application {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
                 if(!list.isEmpty()) {
-//                    Toast.makeText(getApplicationContext(), String.valueOf(isSet), Toast.LENGTH_LONG).show();
                     for(Beacon b : list){
                         String majorMinor = b.getMajor()+":"+b.getMinor();
                         int id = trustedBeacons.indexOf(majorMinor);
@@ -110,7 +113,7 @@ public class BeaconRangingApp extends Application {
                             //If it is not in the hashmap yet
                             if(!appBeacons.keySet().contains(majorMinor))
                                 addToCurrentBeaconHash(b, majorMinor, id);
-                             else {
+                            else {
                                 Log.v("CHK", Utils.computeProximity(b).toString());
 
                                 //b majorMinor id
@@ -125,59 +128,68 @@ public class BeaconRangingApp extends Application {
                                     sendLogs(appBeacons.get(majorMinor));
                                 }
 
-//                                if(Utils.computeProximity(b).equals(Utils.Proximity.IMMEDIATE) && !inDev) {
-//                                    //
-//                                    Log.v("CHK", "IMMEDIATE");
-//                                    beaconManager.stopRanging(region);
-//                                    String reqUrl = getResources().getText(R.string.server_url)
-//                                            + "/pieces/specific?id=" + SplashActivity.locationHash.get(
-//                                            list.get(0).getMajor()+":"+list.get(0).getMinor()
-//                                    );
-//                                    JsonArrayRequest req = new JsonArrayRequest(reqUrl,
-//                                            new Response.Listener<JSONArray>() {
-//                                                @Override
-//                                                public void onResponse(JSONArray response) {
-//                                                    Log.d(TAG, response.toString());
-//
-//                                                    try {
-//                                                        Intent intent = new Intent(getApplicationContext(),
-//                                                                ArtInfoActivity.class);
-//                                                        for (int i = 0; i < response.length(); i++) {
-//
-//                                                            JSONObject resp = (JSONObject) response
-//                                                                    .get(i);
-//                                                            intent.putExtra("subjectName",
-//                                                                    resp.getString("subjectName"));
-//                                                            intent.putExtra("subjectFormal",
-//                                                                    resp.getString("subjectFormal"));
-//                                                            intent.putExtra("faveCount",
-//                                                                    String.valueOf(resp.getInt("faveCount")));
-//
-//                                                        }
-//
-//                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                                        startActivity(intent);
-//                                                    } catch (JSONException e) {
-//                                                        e.printStackTrace();
-//                                                        Toast.makeText(getApplicationContext(),
-//                                                                "Error: " + e.getMessage(),
-//                                                                Toast.LENGTH_LONG).show();
-//                                                    }
-//
-//                                                }
-//                                            }, new Response.ErrorListener() {
-//                                        @Override
-//                                        public void onErrorResponse(VolleyError error) {
-//                                            VolleyLog.d(TAG, "Error: " + error.getMessage());
-//                                            Toast.makeText(getApplicationContext(),
-//                                                    error.getMessage(), Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    });
-//
-//                                    // Adding request to request queue
-//                                    BeaconRangingApp.getInstance().addToRequestQueue(req);
-//                                }
+                                if(technique == 1) {
+                                    if(Utils.computeProximity(b).equals(Utils.Proximity.IMMEDIATE) && !inDev) {
+                                        if(!isLocated) {
+                                            BeaconRangingApp.isLocated = true;
+                                        } else {
+                                            ArtInfoActivity.runningActivity.finish();
+                                            BeaconRangingApp.isLocated = false;
+                                        }
+                                        Log.v("CHK", "NEAR");
+                                        beaconManager.stopRanging(region);
+                                        String reqUrl = getResources().getText(R.string.server_url)
+                                                + "/api/pieces/specific?id=" + SplashActivity.locationHash.get(
+                                                list.get(0).getMajor()+":"+list.get(0).getMinor()
+                                        );
+                                        Toast.makeText(getApplicationContext(), reqUrl, Toast.LENGTH_LONG).show();
+                                        JsonArrayRequest req = new JsonArrayRequest(reqUrl,
+                                                new Response.Listener<JSONArray>() {
+                                                    @Override
+                                                    public void onResponse(JSONArray response) {
+                                                        Log.d(TAG, response.toString());
+
+                                                        try {
+                                                            Intent intent = new Intent(getApplicationContext(),
+                                                                    ArtInfoActivity.class);
+                                                            for (int i = 0; i < response.length(); i++) {
+
+                                                                JSONObject resp = (JSONObject) response
+                                                                        .get(i);
+                                                                intent.putExtra("subjectName",
+                                                                        resp.getString("subjectName"));
+                                                                intent.putExtra("subjectFormal",
+                                                                        resp.getString("subjectFormal"));
+                                                                intent.putExtra("faveCount",
+                                                                        String.valueOf(resp.getInt("faveCount")));
+
+                                                            }
+
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                                            if(isLocated) ((Activity) getApplicationContext()).finish();
+                                                            startActivity(intent);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                            Toast.makeText(getApplicationContext(),
+                                                                    "Error: " + e.getMessage(),
+                                                                    Toast.LENGTH_LONG).show();
+                                                        }
+
+                                                    }
+                                                }, new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                Log.d(TAG, "Error: " + error.getMessage());
+                                                Toast.makeText(getApplicationContext(),
+                                                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                                        // Adding request to request queue
+                                        BeaconRangingApp.getInstance().addToRequestQueue(req);
+                                    }
+                                }
                             }
                         }
                     }
@@ -208,112 +220,95 @@ public class BeaconRangingApp extends Application {
                         SplashActivity.isRanged = true;
                         isSet = true;
                     }
-                    if(!inDev && checkRanging()) {
-                        //The app will estimate the proximity
-                        String proximity = getEstimatedProximity();
-                        Boolean isFound = false;
-                        String locString = "";
-                        //Optimized
-                        Double[] loc = {
-                                getAveragedAccuracy(
-                                        lastKnownLocation.get("pointA").get("accuracyArray")),
-                                getAveragedAccuracy(
-                                        lastKnownLocation.get("pointB").get("accuracyArray")),
-                                getAveragedAccuracy(
-                                        lastKnownLocation.get("pointC").get("accuracyArray"))
-                        };
+                    if(!inDev && technique == 0) {
+                        if(checkRanging()) {
+                            //The app will estimate the proximity
+                            String proximity = getEstimatedProximity();
+                            Boolean isFound = false;
+                            String locString = "";
+                            //Optimized
+                            Double[] loc = {
+                                    getAveragedAccuracy(
+                                            lastKnownLocation.get("pointA").get("accuracyArray")),
+                                    getAveragedAccuracy(
+                                            lastKnownLocation.get("pointB").get("accuracyArray")),
+                                    getAveragedAccuracy(
+                                            lastKnownLocation.get("pointC").get("accuracyArray"))
+                            };
 
-//                        Toast.makeText(getApplicationContext(), "Proximity: " + proximity,
-//                                Toast.LENGTH_LONG).show();
-
-                        //The app will check Accuracy ranges
-                        for(String location: SplashActivity.locationArrayList) {
-                            LocationString ls = appLocations.get(location);
-                            if(ls.pointA != null && ls.pointB != null && ls.pointC != null) {
-                                Toast.makeText(getApplicationContext(),
-                                        "At location? " + (checkIfAtLocation(loc,
-                                        generateRanges(ls))),Toast.LENGTH_LONG).show();
-                                if(checkIfAtLocation(loc, generateRanges(ls))) {
+                            //The app will check Accuracy ranges
+                            for(String location: SplashActivity.locationArrayList) {
+                                LocationString ls = appLocations.get(location);
+                                if(ls.pointA != null && ls.pointB != null && ls.pointC != null) {
                                     Toast.makeText(getApplicationContext(),
-                                            "Ranged at " + location + "", Toast.LENGTH_LONG).show();
-                                    isFound = true;
-                                    locString = ls.name;
+                                            "At location? " + (checkIfAtLocation(loc,
+                                                    generateRanges(ls))),Toast.LENGTH_LONG).show();
+                                    if(checkIfAtLocation(loc, generateRanges(ls))) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "Ranged at " + location + "", Toast.LENGTH_LONG).show();
+                                        isFound = true;
+                                        locString = ls.name;
 
 
 
-                                    beaconManager.stopRanging(region);
-                                    String reqUrl = getResources().getText(R.string.server_url)
-                                            + "/api/pieces/specific?id=" + (SplashActivity
-                                            .locationArrayList.indexOf(location)+1);
-                                    JsonArrayRequest req = new JsonArrayRequest(reqUrl,
-                                            new Response.Listener<JSONArray>() {
-                                                @Override
-                                                public void onResponse(JSONArray response) {
-                                                    Log.d(TAG, response.toString());
+                                        beaconManager.stopRanging(region);
+                                        String reqUrl = getResources().getText(R.string.server_url)
+                                                + "/api/pieces/specific?id=" + (SplashActivity
+                                                .locationArrayList.indexOf(location)+1);
+                                        JsonArrayRequest req = new JsonArrayRequest(reqUrl,
+                                                new Response.Listener<JSONArray>() {
+                                                    @Override
+                                                    public void onResponse(JSONArray response) {
+                                                        Log.d(TAG, response.toString());
 
-                                                    try {
-                                                        Intent intent = new Intent(getApplicationContext(),
-                                                                ArtInfoActivity.class);
-                                                        for (int i = 0; i < response.length(); i++) {
+                                                        try {
+                                                            Intent intent = new Intent(getApplicationContext(),
+                                                                    ArtInfoActivity.class);
+                                                            for (int i = 0; i < response.length(); i++) {
 
-                                                            JSONObject resp = (JSONObject) response
-                                                                    .get(i);
-                                                            intent.putExtra("subjectName",
-                                                                    resp.getString("subjectName"));
-                                                            intent.putExtra("subjectFormal",
-                                                                    resp.getString("subjectFormal"));
-                                                            intent.putExtra("faveCount",
-                                                                    String.valueOf(resp.getInt("faveCount")));
+                                                                JSONObject resp = (JSONObject) response
+                                                                        .get(i);
+                                                                intent.putExtra("subjectName",
+                                                                        resp.getString("subjectName"));
+                                                                intent.putExtra("subjectFormal",
+                                                                        resp.getString("subjectFormal"));
+                                                                intent.putExtra("faveCount",
+                                                                        String.valueOf(resp.getInt("faveCount")));
 
+                                                            }
+
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                            Toast.makeText(getApplicationContext(),
+                                                                    "Error: " + e.getMessage(),
+                                                                    Toast.LENGTH_LONG).show();
                                                         }
 
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        startActivity(intent);
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                        Toast.makeText(getApplicationContext(),
-                                                                "Error: " + e.getMessage(),
-                                                                Toast.LENGTH_LONG).show();
                                                     }
+                                                }, new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                Log.d(TAG, "Error: " + error.getMessage());
+                                                Toast.makeText(getApplicationContext(),
+                                                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
 
-                                                }
-                                            }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d(TAG, "Error: " + error.getMessage());
-                                            Toast.makeText(getApplicationContext(),
-                                                    error.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                        // Adding request to request queue
+                                        BeaconRangingApp.getInstance().addToRequestQueue(req);
+                                    }
 
-                                    // Adding request to request queue
-                                    BeaconRangingApp.getInstance().addToRequestQueue(req);
+
+                                    sendRangeLogs(proximity, Arrays.asList(loc), (isFound?
+                                            locString: String.valueOf(isFound)));
                                 }
+                            } // Ga-graduate ka Kean. Tiwala lang
 
-
-                                sendRangeLogs(proximity, Arrays.asList(loc), (isFound?
-                                        locString: String.valueOf(isFound)));
-                            }
-                        } // Ga-graduate ka Kean. Tiwala lang
-//                        if(SplashActivity.searchMap.containsKey(proximity)) {
-//                            for(String location: SplashActivity.searchMap.get(proximity)) {
-//                                LocationString ls = appLocations.get(location);
-//                                if(ls.pointA != null && ls.pointB != null && ls.pointC != null) {
-//                                    Toast.makeText(getApplicationContext(),
-//                                            "At location? " + (checkIfAtLocation(loc,
-//                                            generateRanges(ls))),Toast.LENGTH_LONG).show();
-//                                    if(checkIfAtLocation(loc, generateRanges(ls))) {
-//                                        Toast.makeText(getApplicationContext(),
-//                                                "You're at " + location + "!", Toast.LENGTH_LONG).show();
-//                                        isFound = true;
-//                                    }
-//                                }
-//                            }
-//                        }
-
-
-                        resetValues();
+                            resetValues();
+                        }
                     }
                 }
             }
@@ -696,7 +691,7 @@ public class BeaconRangingApp extends Application {
         final BeaconString sentBeacon = b;
 
         String reqUrl = getResources().getText(R.string.server_url)
-                + "/api/locations/gather";
+                + "/api/locations/gsather";
         StringRequest putReq = new StringRequest(Request.Method.PUT,
                 reqUrl, new Response.Listener<String>() {
 

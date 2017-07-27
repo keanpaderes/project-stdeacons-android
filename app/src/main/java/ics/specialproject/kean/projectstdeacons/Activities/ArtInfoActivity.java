@@ -1,5 +1,6 @@
 package ics.specialproject.kean.projectstdeacons.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import ics.specialproject.kean.projectstdeacons.Adapters.PicturePagerAdapter;
+import ics.specialproject.kean.projectstdeacons.Application.BeaconRangingApp;
 import ics.specialproject.kean.projectstdeacons.R;
 
 import java.util.ArrayList;
@@ -81,6 +83,7 @@ public class ArtInfoActivity extends AppCompatActivity {
 
         return ret;
     }
+    public static Activity runningActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class ArtInfoActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         subjects = initSubjects();
+        runningActivity = this;
     }
 
     private void init() {
@@ -184,6 +188,7 @@ public class ArtInfoActivity extends AppCompatActivity {
     @Override
     protected void onResume (){
         super.onResume();
+        BeaconRangingApp.beaconManager.startRanging(BeaconRangingApp.region);
         init();
     }
 
@@ -192,6 +197,7 @@ public class ArtInfoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
+                BeaconRangingApp.isLocated = false;
                 finish();
                 return true;
         }
@@ -201,6 +207,7 @@ public class ArtInfoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+        BeaconRangingApp.isLocated = false;
         finish();
     }
 }

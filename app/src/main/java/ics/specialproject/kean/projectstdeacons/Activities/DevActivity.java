@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.estimote.sdk.Beacon;
 import com.estimote.sdk.SystemRequirementsChecker;
 
 import org.json.JSONException;
@@ -36,12 +38,12 @@ import static ics.specialproject.kean.projectstdeacons.Activities.SplashActivity
 import static ics.specialproject.kean.projectstdeacons.Application.BeaconRangingApp.appBeacons;
 import static ics.specialproject.kean.projectstdeacons.Application.BeaconRangingApp.appLocations;
 import static ics.specialproject.kean.projectstdeacons.Application.BeaconRangingApp.inDev;
+import static ics.specialproject.kean.projectstdeacons.Application.BeaconRangingApp.technique;
 
 public class DevActivity extends AppCompatActivity {
     private BeaconListViewAdapter blvAdapter;
     private LocationListViewAdapter locAdapter;
-    private Button addButton;
-    private EditText locationNameField;
+    private Switch techniqueSwitch;
     private ListView beaconListView;
     private ListView locListView;
     public static Boolean isToAdd = false;
@@ -95,15 +97,14 @@ public class DevActivity extends AppCompatActivity {
         });
         rangingToggler.setChecked(false);
 
-//        addButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String toAdd = locationNameField.getText().toString();
-//                // Adding request to request queue
-//                BeaconRangingApp.getInstance().addToRequestQueue(postNewLoc(toAdd));
-//                locationNameField.setText("");
-//            }
-//        });
+        techniqueSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BeaconRangingApp.technique = (techniqueSwitch.isChecked())? 1 : 0;
+                Toast.makeText(getApplicationContext(), "Technique: " + BeaconRangingApp.technique,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -129,66 +130,12 @@ public class DevActivity extends AppCompatActivity {
                 new ArrayList<>(BeaconRangingApp.appBeacons.values()));
         locAdapter = new LocationListViewAdapter(DevActivity.this,
                 new ArrayList<>(appLocations.values()));
-        addButton = (Button) findViewById(R.id.addLocationBtn);
-        locationNameField = (EditText) findViewById(R.id.locationNameField);
+        techniqueSwitch = (Switch) findViewById(R.id.techniqueSwitch);
         beaconListView = (ListView) findViewById(R.id.beaconListView);
         beaconListView.setAdapter(blvAdapter);
         rangingToggler = (ToggleButton) findViewById(R.id.devRangingToggler);
         locListView = (ListView) findViewById(R.id.locListView);
         locListView.setAdapter(locAdapter);
-    }
-
-    public StringRequest postNewLoc(String location) {
-        final String toAdd = location;
-        String reqUrl =  getResources().getText(R.string.server_url) + "/api/locations";
-        return new StringRequest(Request.Method.POST,
-                reqUrl, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(),
-                        "Success!", Toast.LENGTH_LONG);
-
-                if(!appLocations.keySet().contains(toAdd)) {
-                    BeaconRangingApp.LocationString currL =
-                            new BeaconRangingApp.LocationString();
-                    currL.name = toAdd;
-
-                    /*
-                    *   ADD FOR ACCURACY, PROXIMITY
-                    *        AND RSSI
-                    */
-                    appLocations.put(toAdd, currL);
-                }
-
-                locAdapter.setLocationList(new ArrayList<>(
-                        appLocations.values()
-                ));
-
-                locAdapter.notifyDataSetChanged();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),
-                        "Error!", Toast.LENGTH_LONG);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<>();
-                params.put("name", toAdd);
-                params.put("area", getResources().getText(R.string.area_id).toString());
-                return params;
-            }
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
-                return params;
-            }
-        };
     }
 
     public JsonObjectRequest getUpdatedLocation(String reqUrl) {

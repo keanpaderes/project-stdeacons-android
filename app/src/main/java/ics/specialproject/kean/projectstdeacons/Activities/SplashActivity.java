@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.wifi.WifiManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -51,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
     private ToggleButton rangingToggler;
     private TextView splashLogoText;
     private ImageView splashLogo;
-
+    private int logoTapCount = 0;
     private static ArrayList<String> drawerItems = new ArrayList<>();
     //minMaj, loc; the costly solution
     public static HashMap<String, Integer> locationHash = new HashMap<>();
@@ -59,43 +61,48 @@ public class SplashActivity extends AppCompatActivity {
     public static HashMap<String, ArrayList<String>> searchMap = new HashMap<>();
     //all locations
     public static ArrayList<String> locationArrayList = new ArrayList<>();
-
-    private int logoTapCount = 0;
     public static Boolean isRanged = false;
     public static String currentIdentification = "";
+    public static String serverUrl = "";
+
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SplashActivity.this, R.style.Theme_AppCompat_Dialog_Alert);
-        alertDialog.setTitle("Identification");
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SplashActivity.this, R.style.Theme_AppCompat_Dialog_Alert);
+//        alertDialog.setTitle("Identification");
+//
+//        alertDialog.setMessage("Enter your name. (Optional)");
+//        final EditText input = new EditText(SplashActivity.this);
+//        input.setTextColor(Color.WHITE);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT);
+//        input.setLayoutParams(lp);
+//        alertDialog.setView(input); // uncomment this line
+//
+//        alertDialog.setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                SplashActivity.currentIdentification = input.getText().toString();
+//            }
+//        });
+//        alertDialog.setNegativeButton(R.string.cancel_btn, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                SplashActivity.currentIdentification = UUID.randomUUID().toString();
+//            }
+//        });
+//
+//        AlertDialog b = alertDialog.create();
+//        b.show();
 
-        alertDialog.setMessage("Enter your name. (Optional)");
-        final EditText input = new EditText(SplashActivity.this);
-        input.setTextColor(Color.WHITE);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        input.setLayoutParams(lp);
-        alertDialog.setView(input); // uncomment this line
-
-        alertDialog.setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                SplashActivity.currentIdentification = input.getText().toString();
-            }
-        });
-        alertDialog.setNegativeButton(R.string.cancel_btn, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                SplashActivity.currentIdentification = UUID.randomUUID().toString();
-            }
-        });
-
-        AlertDialog b = alertDialog.create();
-        b.show();
+        SplashActivity.currentIdentification = UUID.randomUUID().toString();
+//        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+//        serverUrl = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
     }
 
     @Override
@@ -356,6 +363,8 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         }
                         Toast.makeText(getApplicationContext(), "Locations added.",
+                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Technique: " + BeaconRangingApp.technique,
                                 Toast.LENGTH_LONG).show();
                     } else {
                         //No locations found for area
